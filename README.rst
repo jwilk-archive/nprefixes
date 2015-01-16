@@ -1,6 +1,6 @@
 ::
 
-   $ ./nprefixes -b < /usr/share/dict/words | sort -rn | grep "$(printf "\t")...." | head -n 10
+   $ nprefixes -b < /usr/share/dict/words | sort -rn | grep "$(printf "\t")...." | head -n 10
        428 over
        410 inte
        325 inter
