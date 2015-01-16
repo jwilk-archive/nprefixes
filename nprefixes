@@ -1,26 +1,35 @@
 #!/usr/bin/python3
 
+import argparse
 import sys
 import collections
 
-counter = collections.Counter()
 
-# Count all prefixes:
-for line in sys.stdin:
-    line = line.rstrip('\n')
-    for i in range(0, len(line) + 1):
-        prefix = line[:i]
-        counter[prefix] += 1
+def drop_boring_prefixes(counter):
+    for prefix in list(counter.keys()):
+        for i in range(0, len(prefix)):
+            subprefix = prefix[:i]
+            assert prefix != subprefix
+            if counter[prefix] == counter[subprefix]:
+                del counter[subprefix]
 
-# Drop boring prefixes:
-for prefix in list(counter.keys()):
-    for i in range(0, len(prefix)):
-        subprefix = prefix[:i]
-        assert prefix != subprefix
-        if counter[prefix] == counter[subprefix]:
-            del counter[subprefix]
 
-for prefix, i in sorted(counter.items()):
-    print('{i:7}\t{s}'.format(i=i, s=prefix))
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-b', '--ignore-boring', action='store_true')
+    options = ap.parse_args()
+    counter = collections.Counter()
+    for line in sys.stdin:
+        line = line.rstrip('\n')
+        for i in range(0, len(line) + 1):
+            prefix = line[:i]
+            counter[prefix] += 1
+    if options.ignore_boring:
+        drop_boring_prefixes(counter)
+    for prefix, i in sorted(counter.items()):
+        print('{i:7}\t{s}'.format(i=i, s=prefix))
+
+if __name__ == '__main__':
+    main()
 
 # vim:ts=4 sw=4 et
