@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+
+import sys
+import collections
+
+counter = collections.Counter()
+
+# Count all prefixes:
+for line in sys.stdin:
+    line = line.rstrip('\n')
+    for i in range(0, len(line) + 1):
+        prefix = line[:i]
+        counter[prefix] += 1
+
+# Drop boring prefixes:
+for prefix in list(counter.keys()):
+    for i in range(0, len(prefix)):
+        subprefix = prefix[:i]
+        assert prefix != subprefix
+        if counter[prefix] == counter[subprefix]:
+            del counter[subprefix]
+
+for prefix, i in sorted(counter.items()):
+    print('{i:7}\t{s}'.format(i=i, s=prefix))
+
+# vim:ts=4 sw=4 et
