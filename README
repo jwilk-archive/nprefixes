@@ -1,4 +1,4 @@
-::
+.. code:: console
 
    $ nprefixes -b < /usr/share/dict/words | sort -rn | grep "$(printf "\t")...." | head -n 10
        428 over
