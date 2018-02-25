@@ -17,7 +17,9 @@ def drop_boring_prefixes(counter):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('-b', '--ignore-boring', action='store_true')
+    ap.add_argument('-b', '--ignore-boring', action='store_true',
+        help="if a prefix and its sub-prefix have the same count, don't show the former"
+    )
     options = ap.parse_args()
     counter = collections.Counter()
     for line in sys.stdin:
