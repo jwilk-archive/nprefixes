@@ -24,7 +24,6 @@ import argparse
 import sys
 import collections
 
-
 def drop_boring_prefixes(counter):
     for prefix in list(counter.keys()):
         for i in range(0, len(prefix)):
@@ -32,7 +31,6 @@ def drop_boring_prefixes(counter):
             assert prefix != subprefix
             if counter[prefix] == counter[subprefix]:
                 del counter[subprefix]
-
 
 def main():
     ap = argparse.ArgumentParser()
